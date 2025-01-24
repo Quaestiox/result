@@ -1,6 +1,6 @@
 # Result
 
-Result type for error handling like Haskell, Rust.
+Result type in Go for error handling like Haskell and Rust.
 
 ## Install
 
