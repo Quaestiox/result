@@ -8,6 +8,7 @@ Result type in Go for error handling like Haskell and Rust.
 
 ## Example
 ```
+// First way is using the ResultIF interface if you need return different types
 func needPositive(num int) result.ResultIF {
 	if num < 0 {
 		return result.Err(errors.New("error input"))
@@ -15,6 +16,7 @@ func needPositive(num int) result.ResultIF {
 	return result.Ok(num)
 }
 
+// Second way is using the specific Result struct. In this way, you should use named result parameters.
 func needPositive2(num int) (r result.Result[int, error]) {
 	if num < 0 {
 		return r.Err(errors.New("error input"))
