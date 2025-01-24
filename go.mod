@@ -1,3 +1,3 @@
 module github.com/Quaestiox/result
 
-go 1.22.11
+go 1.21.0
