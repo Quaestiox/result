@@ -1,3 +1,9 @@
+# Result
+
+Result type for error handling like Haskell, Rust.
+
+## Install
+
 `go get github.com/Quaestiox/result`
 
 ## Example
