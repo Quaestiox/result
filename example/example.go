@@ -20,6 +20,13 @@ func needPositive2(num int) (r result.Result[int, error]) {
 	return r.Ok(num)
 }
 
+func normal(num int) (int, error) {
+	if num < 0 {
+		return num, errors.New("error input")
+	}
+	return num, nil
+}
+
 func main() {
 	if res := needPositive(-1); res.IsOk() {
 		fmt.Println(res.OK())
@@ -27,9 +34,17 @@ func main() {
 		fmt.Println(res.ERR())
 	}
 
-	if res := needPositive(1); res.IsOk() {
+	if res := needPositive2(1); res.IsOk() {
 		fmt.Println(res.OK())
 	} else {
+		fmt.Println(res.ERR())
+	}
+
+	if res := result.AsRes(normal, -1); res.IsOk() {
+		fmt.Println("ok")
+		fmt.Println(res.OK())
+	} else {
+		fmt.Println("err")
 		fmt.Println(res.ERR())
 	}
 }

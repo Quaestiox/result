@@ -1,5 +1,11 @@
 package result
 
+import (
+	"fmt"
+	"os"
+	"reflect"
+)
+
 type ResultIF interface {
 	OK() any
 	ERR() any
@@ -108,4 +114,42 @@ func (r Result[T, E]) Ok(ok T) Result[T, E] {
 func (r Result[T, E]) Err(err E) Result[T, E] {
 	errStruct := Error[E]{Value: err}
 	return Result[T, E]{O: nil, E: &errStruct}
+}
+
+func AsRes(fn any, args ...any) Result[any, any] {
+
+	fnType := reflect.TypeOf(fn)
+	fnValue := reflect.ValueOf(fn)
+	outc := fnType.NumOut()
+	inc := fnType.NumIn()
+
+	if fnType.Kind() != reflect.Func {
+		fmt.Println("provided is not a function.")
+		os.Exit(1)
+	}
+
+	if outc != 2 {
+		fmt.Println("only support two out parameters.")
+		os.Exit(1)
+	}
+
+	if len(args) != inc {
+		fmt.Printf("error: expected %d arguments, got %d.\n", inc, len(args))
+		os.Exit(1)
+	}
+
+	paras := make([]reflect.Value, inc)
+
+	for i, v := range args {
+		paras[i] = reflect.ValueOf(v)
+	}
+
+	outs := fnValue.Call(paras)
+
+	if outs[1].IsNil() {
+		return Ok(outs[0].Interface())
+	} else {
+		return Err(outs[1].Interface())
+	}
+
 }
