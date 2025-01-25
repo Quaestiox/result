@@ -116,7 +116,7 @@ func (r Result[T, E]) Err(err E) Result[T, E] {
 	return Result[T, E]{O: nil, E: &errStruct}
 }
 
-func AsRes(fn any, args ...any) Result[any, any] {
+func As(fn any, args ...any) Result[any, any] {
 
 	fnType := reflect.TypeOf(fn)
 	fnValue := reflect.ValueOf(fn)

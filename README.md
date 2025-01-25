@@ -38,3 +38,21 @@ func main() {
 	}
 }
 ```
+
+If you need turn (<anyType>, error) to Result, you can use **As** function like:
+```
+func normal(num int) (int, error) {
+	if num < 0 {
+		return num, errors.New("error input")
+	}
+	return num, nil
+}
+
+if res := result.As(normal, -1); res.IsOk() {
+	fmt.Println("ok")
+	fmt.Println(res.OK())
+} else {
+	fmt.Println("err")
+	fmt.Println(res.ERR())
+}
+```

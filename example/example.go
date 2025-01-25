@@ -40,7 +40,7 @@ func main() {
 		fmt.Println(res.ERR())
 	}
 
-	if res := result.AsRes(normal, -1); res.IsOk() {
+	if res := result.As(normal, -1); res.IsOk() {
 		fmt.Println("ok")
 		fmt.Println(res.OK())
 	} else {
