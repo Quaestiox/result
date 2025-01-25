@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-If you need turn (<anyType>, error) to Result, you can use **As** function like:
+If you need turn func(...) (anyType, error) to Result, you can use **As** function like:
 ```
 func normal(num int) (int, error) {
 	if num < 0 {
